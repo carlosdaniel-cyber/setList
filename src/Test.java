@@ -54,11 +54,14 @@ public class Test {
     }*/
 
     public static void main(String[] args) {
-        SongDAO dao = new SongDAO();
+        FrameTable frame = new FrameTable();
+        frame.setVisible(true);
+
+        /*SongDAO dao = new SongDAO();
         dao.add(new Song("Isoteric Surgery", "The Way of All Flesh", "Gojira"));
         List<Song> musicas = dao.getSong();
         for (Song musica : musicas) {
             System.out.println(musica);
-        }
+        }*/
     }
 }
