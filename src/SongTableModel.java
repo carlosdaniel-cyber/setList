@@ -1,7 +1,9 @@
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
-public class SongTableModel extends AbstractTableModel {
+public class SongTableModel extends AbstractTableModel implements TableModelListener {
     SongDAO dao;
     List<Song> musicas;
     List<String> columns;
@@ -10,6 +12,7 @@ public class SongTableModel extends AbstractTableModel {
         this.dao = dao;
         musicas =  dao.getSong();
         columns = List.of("Título", "Álbum", "Artista");
+        this.addTableModelListener(this);
     }
 
     @Override
@@ -30,6 +33,7 @@ public class SongTableModel extends AbstractTableModel {
             case 1 -> musica.setAlbum((String) aValue);
             case 2 -> musica.setArtist((String) aValue);
         }
+        fireTableCellUpdated(rowIndex, columnIndex);
     }
 
     @Override
@@ -51,5 +55,20 @@ public class SongTableModel extends AbstractTableModel {
             case 2 -> musica.getArtist();
             default -> null;
         };
+    }
+
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        int row = e.getFirstRow();
+        Song musica = musicas.get(row);
+        dao.update(musica);
+    }
+
+    public void addSong(String title) {
+        Song musica = new Song();
+        musica.setTitle(title);
+        musicas.add(musica);
+        dao.add(musica);
+        fireTableDataChanged();
     }
 }

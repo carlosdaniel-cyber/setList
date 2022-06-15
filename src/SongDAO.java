@@ -16,13 +16,13 @@ public class SongDAO {
         }
     }
 
-    public void add(Song c) {
+    public void add(Song s) {
         String sql = "INSERT INTO Song(title, album, artist) VALUES(?,?,?)";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, c.getTitle());
-            stmt.setString(2, c.getAlbum());
-            stmt.setString(3, c.getArtist());
+            stmt.setString(1, s.getTitle());
+            stmt.setString(2, s.getAlbum());
+            stmt.setString(3, s.getArtist());
             stmt.execute();
             stmt.close();
 
@@ -32,7 +32,7 @@ public class SongDAO {
     }
 
     public List<Song> getSong() {
-        List<Song> musicas = new LinkedList<Song>();
+        List<Song> musicas = new LinkedList<>();
 
         String sql = "select * from song";
         try {
@@ -52,5 +52,20 @@ public class SongDAO {
             throw new RuntimeException(u);
         }
         return musicas;
+    }
+
+    public void update(Song s) {
+        String sql = "update Song set album=?, artist=? where title=?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, s.getAlbum());
+            stmt.setString(2, s.getArtist());
+            stmt.setString(3, s.getTitle());
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
     }
 }
