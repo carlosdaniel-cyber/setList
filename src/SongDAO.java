@@ -1,8 +1,9 @@
 import java.sql.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SongDAO {
+public class SongDAO implements AbstractDAO<Song> {
     public Connection conn;
 
     public SongDAO() {
@@ -54,6 +55,17 @@ public class SongDAO {
         return musicas;
     }
 
+    @Override
+    public void create(Song obj) {
+
+    }
+
+    @Override
+    public List<Song> retrieve() {
+        List<Song> songs = Arrays.asList();
+        return songs;
+    }
+
     public void update(Song s) {
         String sql = "update Song set album=?, artist=? where title=?";
         try {
@@ -67,5 +79,10 @@ public class SongDAO {
         } catch (SQLException u) {
             throw new RuntimeException(u);
         }
+    }
+
+    @Override
+    public void delete(Song obj) {
+
     }
 }

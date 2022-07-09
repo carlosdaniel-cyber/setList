@@ -2,14 +2,12 @@ public class Song {
     public Song() {
 
     }
+    @ColunaAnnotation(name = "Título", pos = 0)
     private String title;
+    @ColunaAnnotation(name = "Álbum", pos = 1)
     private String album;
+    @ColunaAnnotation(name = "Artista", pos = 2)
     private String artist;
-    public Song(String t, String alb, String art) {
-        this.title = t;
-        this.album = alb;
-        this.artist = art;
-    }
 
     public String getTitle() {
         return this.title;
